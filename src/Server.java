@@ -7,6 +7,8 @@ public class Server {
     private final List<Player> players;
     private Player currentPlayer;
     private final int port = 1234;
+    Client client = new Client();
+    private String question = "";
 
     public Server() {
         players = new ArrayList<>();
@@ -49,14 +51,41 @@ public class Server {
         }
     }
 
-    public void chooseCurrentPlayer() {
+    public boolean chooseCurrentPlayer() {
         Random random = new Random();
         currentPlayer = players.get(random.nextInt(players.size())); // Elige al azar al jugador actual
+        currentPlayer.send("Te toca preguntar!, envia una pregunta");
+        for (Player player : players) {
+            if (player != currentPlayer) {
+                player.send("Esperando la pregunta . . .");
+            }
+        }
+
+        // Espera la pregunta del jugador actual, cuando la recibe la envía a los demás jugadores
+        try {
+            String question = currentPlayer.receive();
+            if (question != null) {
+                this.question = question;
+                for (Player player : players) {
+                    if (player != currentPlayer) {
+                        player.send("Pregunta: " + question);
+                    } else {
+                        player.send("Preguntaste: " + question + "\nEspera las respuestas . . .");
+                    }
+                }
+                return true;
+            }
+        } catch (IOException e) {
+            System.out.println("Error al recibir la pregunta del jugador: " + e.getMessage());
+        }
+        return false;
     }
 
     public void startGame() {
-        chooseCurrentPlayer();
-        sendQuestionToPlayers("Aquí va tu pregunta: \n" + "");
+        boolean asked = chooseCurrentPlayer();
+        if (asked) {
+            sendQuestionToPlayers(question);
+        }
     }
 
     public void sendQuestionToPlayers(String question) {

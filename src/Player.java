@@ -36,10 +36,13 @@ class Player implements Runnable {
                 socket.close(); // Cierra el socket
             }
         } catch (IOException e) {
-            System.out.println("Error al cerrar el socket del jugador: " + e.getMessage());
+            System.out.println("Error al cerrar el socket del jugador, error: " + e.getMessage());
         }
     }
 
+    public String receive () throws IOException {
+        return in.readLine();
+    }
 
     @Override
     public void run() {

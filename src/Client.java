@@ -11,6 +11,8 @@ public class Client extends JFrame {
     private JTextArea chatArea;
     private JTextField messageField;
     private PrintWriter out;
+    private Player currentPlayer;
+
 
     public Client() {
         super("TriviaConflux - Desafío de Saberes Multidisciplinarios");
@@ -62,6 +64,15 @@ public class Client extends JFrame {
         String message = messageField.getText();
         out.println(message);
         messageField.setText("");
+    }
+    //Metodo booleano, si el jugador actual es el mismo que el jugador que envia la pregunta, envia la pregunta, cuando se envie la pregunta, se regresa true, si no, regresa false
+    public boolean sendQuestion(Player currentPlayer, String question) {
+        if (this.currentPlayer == currentPlayer) {
+            currentPlayer.send(question);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static void main(String[] args) {
