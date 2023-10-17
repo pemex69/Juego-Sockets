@@ -46,13 +46,14 @@ class Player implements Runnable {
 
     @Override
     public void run() {
-        try {
+        System.out.println("Player run");
+/*        try {
             String input;
-            while ((input = in.readLine()) != null) {
+            while ((input = in.readLine()) != null ) {
                 server.processAnswers(input);
             }
         } catch (IOException e) {
             System.out.println("Error de comunicación con el jugador: " + e.getMessage());
-        }
+        }*/
     }
 }

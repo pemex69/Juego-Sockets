@@ -7,7 +7,6 @@ public class Server {
     private final List<Player> players;
     private Player currentPlayer;
     private final int port = 1234;
-    Client client = new Client();
     private String question = "";
 
     public Server() {
@@ -60,9 +59,40 @@ public class Server {
                 player.send("Esperando la pregunta . . .");
             }
         }
+        // Espera la pregunta del jugador actual, cuando la recibe, el servidor pide la respuesta a la pregunta, despues le envia la pregunta a los demas jugadores
 
-        // Espera la pregunta del jugador actual, cuando la recibe la envía a los demás jugadores
         try {
+            System.out.println("try 1");
+            String question = currentPlayer.receive();
+            System.out.println("question = currentPlayer.receive()");
+            if (question != null) {
+                this.question = question;
+                System.out.println("this.question = question");
+                //preguntar por la respuesta a la pregunta al jugador actual
+                currentPlayer.send("\nIngresa la respuesta a la pregunta: ");
+                System.out.println("preguntado");
+                String answer = currentPlayer.receive();
+                System.out.println("recivido");
+                if (answer != null) {
+                    System.out.println("if 2");
+                    for (Player player : players) {
+                        if (player != currentPlayer) {
+                            player.send("\nPregunta: " + question);
+                            player.send("\nRespuesta: " + answer);
+                        } else {
+                            player.send("\nPreguntaste: " + question + "\nEspera las respuestas . . .");
+                            player.send("\nRespuesta dada: " + answer);
+                        }
+                    }
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error al recibir la pregunta del jugador: " + e.getMessage());
+        }
+
+
+/*        try {
             String question = currentPlayer.receive();
             if (question != null) {
                 this.question = question;
@@ -77,7 +107,7 @@ public class Server {
             }
         } catch (IOException e) {
             System.out.println("Error al recibir la pregunta del jugador: " + e.getMessage());
-        }
+        }*/
         return false;
     }
 
