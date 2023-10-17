@@ -1,3 +1,4 @@
+/*
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -7,13 +8,13 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class Client extends JFrame {
+public class ClientGUI extends JFrame {
     private JTextArea chatArea;
     private JTextField messageField;
     private PrintWriter out;
 
-    public Client() {
-        super("TriviaConflux - Desafío de Saberes Multidisciplinarios");
+    public ClientGUI() {
+        super("Chat Client");
         chatArea = new JTextArea(15, 30);
         chatArea.setEditable(false);
         JScrollPane chatScroll = new JScrollPane(chatArea);
@@ -38,15 +39,14 @@ public class Client extends JFrame {
         setSize(400, 300);
         setVisible(true);
 
-        String serverName = "10.202.95.248"; // Dirección IP del servidor
+        String serverAddress = "localhost"; // Dirección IP del servidor
         int port = 1234; // Puerto del servidor
 
         try {
-            System.out.println("Conectándose a " + serverName + " en el puerto " + port);
-            Socket clientSocket = new Socket(serverName, port);
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
-            System.out.println("Conectado.");
+            Socket socket = new Socket(serverAddress, port);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
+
             while (true) {
                 String line = in.readLine();
                 if (line != null) {
@@ -65,6 +65,7 @@ public class Client extends JFrame {
     }
 
     public static void main(String[] args) {
-        new Client();
+        new ClientGUI();
     }
 }
+*/

@@ -31,21 +31,19 @@ public class Server {
     public void acceptPlayers() {
         System.out.println("acceptPlayers");
         try {
-/*
             while (players.size() < 8) { // Acepta hasta 8 jugadores, esta comentado para que pueda probarlo con otras computadoras.
-*/
-            System.out.println("try acceptPlayers");
-            // Acepta conexiones de jugadores
-            Socket socket = serverSocket.accept(); //  <- ESTO NO SIRVE,  no acepta jugadores pero tampoco marca error
-            System.out.println("Socket acceptado");
-            Player player = new Player(socket, this);
-            players.add(player);
+                System.out.println("try acceptPlayers");
+                // Acepta conexiones de jugadores
+                Socket socket = serverSocket.accept();
+                System.out.println("Socket acceptado");
+                Player player = new Player(socket, this);
+                players.add(player);
 
-            System.out.println("Jugador aceptado");
-            new Thread(player).start();
-            System.out.println("Jugador aceptado");
-            startGame();
-            /* }*/
+                System.out.println("Jugador aceptado");
+                new Thread(player).start();
+                System.out.println("Jugador aceptado");
+                startGame();
+            }
         } catch (IOException e) {
             System.out.println("Error al aceptar conexiones de jugadores: " + e.getMessage());
         }

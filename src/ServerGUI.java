@@ -9,7 +9,7 @@ public class ServerGUI extends JFrame {
         this.server = server;
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("TriviaConflux");
+        frame.setTitle("SERVER | TriviaConflux");
         frame.setSize(400, 300);
         frame.setLocationRelativeTo(null);
 
