@@ -6,6 +6,7 @@ class Player implements Runnable {
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
+    private double score = 0;
 
     public Player(Socket socket, Server server) {
         this.socket = socket;
@@ -40,7 +41,7 @@ class Player implements Runnable {
         }
     }
 
-    public String receive () throws IOException {
+    public String receive() throws IOException {
         return in.readLine();
     }
 
@@ -55,5 +56,17 @@ class Player implements Runnable {
         } catch (IOException e) {
             System.out.println("Error de comunicación con el jugador: " + e.getMessage());
         }*/
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public void updateScore(double score) {
+        this.score += score;
     }
 }

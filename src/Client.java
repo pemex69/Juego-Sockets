@@ -40,7 +40,7 @@ public class Client extends JFrame {
         setSize(400, 300);
         setVisible(true);
 
-        String serverName = "10.202.95.248"; // Dirección IP del servidor
+        String serverName = "192.168.68.109"; // Dirección IP del servidor
         int port = 1234; // Puerto del servidor
 
         try {
@@ -65,6 +65,7 @@ public class Client extends JFrame {
         out.println(message);
         messageField.setText("");
     }
+
     //Metodo booleano, si el jugador actual es el mismo que el jugador que envia la pregunta, envia la pregunta, cuando se envie la pregunta, se regresa true, si no, regresa false
     public boolean sendQuestion(Player currentPlayer, String question) {
         if (this.currentPlayer == currentPlayer) {
